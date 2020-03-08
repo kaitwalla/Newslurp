@@ -1,0 +1,74 @@
+{% extends 'base.twig' %}
+
+{% set pageTitle = 'Home' %}
+
+{% set bodyClass = 'front' %}
+
+{% block main %}
+    {% if activated == false %}
+        <form action="/authorize" method="POST">
+            <h2>Authenticate with Google</h2>
+            <label>Email address
+            <input required name="email_address" />
+            </label>
+            <button>Authenticate</button>
+        </form>
+    {% else %}
+        {% if user == false %}
+            <div class="box">
+                <form action="/authorize" method="POST">
+                    <h3>This installation is activated.</h3>
+                    <h4>Please log in</h4>
+                        <label>Email address
+                        <input required name="email_address" />
+                        </label>
+                    <button>Authenticate with Google</button>
+                </form>
+            </div>
+        {% else %}
+            <div class="box">
+                <h3>You are the current user.</h3>
+                <a href="/stories/">List all stories</a>
+                <a href="/logout" class="button">Logout</a>
+                {% if stories %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>From</th>
+                                <th>Subject</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for story in stories %}
+                            <tr>
+                                <td>
+                                    <a href="/story/{{ story.id }}">
+                                        {{ story.date }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="/story/{{ story.id }}">
+                                        {{ story.author }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="/story/{{ story.id }}">
+                                        {{ story.title }}
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block addscripts %}
+    <script>
+        
+    </script>
+{% endblock %}

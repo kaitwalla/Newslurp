@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Newslurp - {{ pageTitle }}</title>
+        <script data-main="/js/app" src="/js/require.js"></script>
+    </head>
+    {% if bodyClass is empty %}
+        <body class="newslurp page">
+    {% else %}
+        <body class="newslurp page {{ bodyClass|join(' ') }}">
+    {% endif %}
+        <header>
+            <h2>Newslurp</h2>
+        </header>
+        <main>
+        {% block main %}
+
+        {% endblock main %}
+        </main>
+    </body>
+    <footer>{% block footer %}{% endblock %}</footer>
+    {% block scripts %}
+        <script src="https://kit.fontawesome.com/fadb0aaf3e.js" crossorigin="anonymous"></script>
+        <script src="/js/app.js"></script>
+        <link type="text/css" rel="stylesheet" href="/app.css" />
+        {% block addscripts %}
+
+        {% endblock %}
+    {% endblock %}
+</body>
+</html>

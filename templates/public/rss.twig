@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" 
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/">
+
+<channel>
+  <title>Newslurp</title>
+  <link>{{ url }}</link>
+  <description>Newsletters via RSS</description>
+    {% if stories %}
+        {% for story in stories %}
+            <item>
+                <title>{{ story.title }}</title>
+                <link>{{ url }}/story/{{ story.id }}</link>
+                <description>{{ story.description }}</description>
+            </item>
+        {% endfor %}
+    {% endif %}
+</channel>
+</rss>

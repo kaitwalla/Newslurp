@@ -1,0 +1,5 @@
+# Specify filepatterns you want git to ignore.
+env.php
+client_secret.json
+vendor/
+composer.lock
