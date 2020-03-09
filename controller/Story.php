@@ -25,7 +25,8 @@ class Story {
     }
 
     public static function get_stories($page) {
-        $query = Database::query('SELECT * FROM ' . Database::STORY_TABLE. ' ORDER BY `date` DESC LIMIT 10 OFFSET ' . $page);
+        $offset = $page * 10;
+        $query = Database::query('SELECT * FROM ' . Database::STORY_TABLE. ' ORDER BY `date` DESC LIMIT 10 OFFSET ' . $offset);
         $data = $query->fetchAll();
         $stories = [];
         foreach ($data as $storyData) {

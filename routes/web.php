@@ -46,6 +46,7 @@ Flight::route('/callback', function(){
 
 Flight::route('/update', function(){
     $gmail = new Gmail();    
+    Flight::redirect('/list');
 });
 
 Flight::route('/list', function() {
