@@ -5,7 +5,7 @@ namespace Technical_penguins\Newslurp\Action;
 use Flight;
 use Google_Client;
 use Google_Service_Gmail;
-use Technical_penguins\Newslurp\Model\User;
+use Technical_penguins\Newslurp\Controller\User;
 
 class Callback {
     public static function authenticate() {
@@ -27,7 +27,8 @@ class Callback {
             $user_id = $user_data['sub'];
             User::update($email, $access, $id, $user_id);
             if (isset($token['refresh_token'])) {
-                User::update_token('refresh', $token['refresh_token']);
+                User::update_token('refresh', $token['refresh_token'], $email);
+                $_ENV['refresh'] = $token['refresh_token'];
             }
             Flight::redirect('/');
         }

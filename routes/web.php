@@ -7,7 +7,7 @@ use Technical_penguins\Newslurp\Action\Callback;
 use Technical_penguins\Newslurp\Action\Gmail;
 use Technical_penguins\Newslurp\Controller\Page;
 use Technical_penguins\Newslurp\Controller\Story;
-use Technical_penguins\Newslurp\Model\User;
+use Technical_penguins\Newslurp\Controller\User;
 
 Flight::route('/', function(){
     $activated = User::is_installation_activated();

@@ -1,6 +1,6 @@
 <?php
 
-namespace Technical_penguins\Newslurp\Model;
+namespace Technical_penguins\Newslurp\Controller;
 
 use Technical_penguins\Newslurp\Controller\Database;
 
@@ -41,8 +41,36 @@ class User {
         }
     }
 
+    public static function get_credentials() {
+        $query = Database::query('SELECT * FROM ' . Database::USER_TABLE);
+        $results = $query->fetchAll(\PDO::FETCH_ASSOC);
+        $map = new \stdClass();
+        $map->access_token = 'access';
+        $map->refresh_token = 'refresh';
+        $map->label_id = 'label_id';
+        $map->user_id = 'user_id';
+        $map->id_token = 'id';
+        $map->email = 'email';
+        $return = [];
+        foreach ($results[0] as $param=>$value) {
+            if (isset($map->{$param})) {
+                $return[$map->{$param}] = $value;
+                continue;
+            }
+        }
+        return $return;
+    }
+
     public static function insert($email, $access, $id, $user_id) {
         $query = Database::query('INSERT INTO ' . Database::USER_TABLE . ' (`email`,`access_token`,`id_token`,`user_id`) VALUES (?,?,?,?)', [$email, $access, $id, $user_id]);
+    }
+
+    public static function load_values_from_session() {
+        $values = [];
+        foreach (['access','refresh','label_id','id','user_id'] as $term) {
+            $values[$term] = $_SESSION[$term];
+        }
+        return $values;
     }
 
     public static function set_session($email, $access, $id, $user_id) {
@@ -66,8 +94,7 @@ class User {
         }
     }
 
-    public static function update_token($type = 'access', $token) {
-        $_SESSION[$type] = $token;
-        $query = Database::query('UPDATE ' . Database::USER_TABLE . ' SET ' . $type . '_token=? WHERE email=?',[$token, $_SESSION['email']]);
+    public static function update_token($type = 'access', $token, $email) {
+        $query = Database::query('UPDATE ' . Database::USER_TABLE . ' SET ' . $type . '_token=? WHERE email=?',[$token, $email]);
     }
 }
