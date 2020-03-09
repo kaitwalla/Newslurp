@@ -18,10 +18,6 @@ class Story {
         }
         if (!$loaded) {
             $this->date = strtotime($this->date);
-        } else {
-            $date = new DateTime();
-            $date->setTimestamp($this->date);
-            $this->date = $date->format('M. j, Y');
         }
     }
 

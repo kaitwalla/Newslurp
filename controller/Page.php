@@ -14,3 +14,8 @@ $twigLoader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../templates');
 $twigObject = new \Twig\Environment($twigLoader, [
     //'cache' => __DIR__ . '/../cache',
 ]);
+$timestampFilter = new \Twig\TwigFilter('timestamp', function ($timestamp) {
+    return date('r', $timestamp);
+});
+
+$twigObject->addFilter($timestampFilter);

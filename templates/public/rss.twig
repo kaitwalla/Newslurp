@@ -10,9 +10,11 @@
     {% if stories %}
         {% for story in stories %}
             <item>
+                <pubdate>{{ story.date|timestamp }}</pubdate>
                 <title>{{ story.title }}</title>
+                <guid>{{ url }}/story/{{ story.id }}</guid>
                 <link>{{ url }}/story/{{ story.id }}</link>
-                <description>{{ story.description }}</description>
+                <description>{{ story.description|trim }}</description>
             </item>
         {% endfor %}
     {% endif %}

@@ -1,3 +1,12 @@
+# 1.1.1
+## ADDED
+- Twig filter for timestamp
+- Date, GUID to RSS feed
+## MODIFIED
+- RSS description now trims whitespace
+## REMOVED
+- Trigger.php (no longer needed after we solved the session issue)
+
 # 1.1.0
 ##MODIFIED
 - Removed GMail's dependency on session for values
