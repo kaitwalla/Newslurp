@@ -6,32 +6,38 @@
 
 {% block main %}
     {% if activated == false %}
-        <form action="/authorize" method="POST">
+        <form class="pure-form pure-form-stacked" action="/authorize" method="POST">
+            <fieldset>
             <h2>Authenticate with Google</h2>
             <label>Email address
             <input required name="email_address" />
             </label>
-            <button>Authenticate</button>
+            <button class="pure-button primary">Authenticate</button>
+        </fieldset>
         </form>
     {% else %}
         {% if user == false %}
             <div class="box">
-                <form action="/authorize" method="POST">
+                <form class="pure-form pure-form-stacked" action="/authorize" method="POST">
+                    <fieldset>
                     <h3>This installation is activated.</h3>
                     <h4>Please log in</h4>
                         <label>Email address
                         <input required name="email_address" />
                         </label>
-                    <button>Authenticate with Google</button>
+                    <button class="pure-button primary">Authenticate with Google</button>
+                </fieldset>
                 </form>
             </div>
         {% else %}
-            <div class="box">
+            <div class="box content">
                 <h3>You are the current user.</h3>
-                <a href="/stories/">List all stories</a>
-                <a href="/logout" class="button">Logout</a>
+                <div class="align-center" style="margin-bottom: 15px;">
+                    <a class="pure-button secondary" href="/list/">List all stories</a>
+                    <a href="/logout" class="pure-button primary">Logout</a>
+                </div>
                 {% if stories %}
-                    <table>
+                    <table class="pure-table">
                         <thead>
                             <tr>
                                 <th>Date</th>
@@ -42,12 +48,12 @@
                         <tbody>
                         {% for story in stories %}
                             <tr>
-                                <td>
+                                <td class="date">
                                     <a href="/story/{{ story.id }}">
-                                        {{ story.date }}
+                                        {{ story.date|date }}
                                     </a>
                                 </td>
-                                <td>
+                                <td class="author">
                                     <a href="/story/{{ story.id }}">
                                         {{ story.author }}
                                     </a>

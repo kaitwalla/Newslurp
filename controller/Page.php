@@ -18,4 +18,8 @@ $timestampFilter = new \Twig\TwigFilter('timestamp', function ($timestamp) {
     return date('r', $timestamp);
 });
 
+$timestampFilter = new \Twig\TwigFilter('date', function ($timestamp) {
+    return date('F j, g:i a', $timestamp);
+});
+
 $twigObject->addFilter($timestampFilter);

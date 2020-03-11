@@ -6,51 +6,53 @@
 
 {% block main %}
     {% if stories %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>From</th>
-                    <th>Subject</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for story in stories %}
-                <tr>
-                    <td>
-                        <a href="/story/{{ story.id }}">
-                            {{ story.date }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="/story/{{ story.id }}">
-                            {{ story.author }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="/story/{{ story.id }}">
-                            {{ story.title }}
-                        </a>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        <ul class="nav">
-            {% if page != 1 %}
-                <li><a href="/list/{{ page-1 }}"><< Prev</a></li>
-            {% endif %}
-            {% if max_pages > 1 %}
-                <select name="page-select">
-                    {% for i in 1..max_pages %}
-                        <option value="{{ i }}"{% if page == i %}selected{% endif %}>Page {{ i }}</option>
-                    {% endfor %}
-                </select>
-            {% endif %}
-            {% if page != max_pages %}
-                <li><a href="/list/{{ page+1 }}">Next >></a></li>
-            {% endif %}
-        </ul>
+        <div class="content">
+            <table class="pure-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>From</th>
+                        <th>Subject</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for story in stories %}
+                    <tr>
+                        <td class="date">
+                            <a href="/story/{{ story.id }}">
+                                {{ story.date|date }}
+                            </a>
+                        </td>
+                        <td class="author">
+                            <a href="/story/{{ story.id }}">
+                                {{ story.author }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="/story/{{ story.id }}">
+                                {{ story.title }}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <ul class="nav">
+                {% if page != 1 %}
+                    <li><a href="/list/{{ page-1 }}"><< Prev</a></li>
+                {% endif %}
+                {% if max_pages > 1 %}
+                    <select name="page-select">
+                        {% for i in 1..max_pages %}
+                            <option value="{{ i }}"{% if page == i %}selected{% endif %}>Page {{ i }}</option>
+                        {% endfor %}
+                    </select>
+                {% endif %}
+                {% if page != max_pages %}
+                    <li><a href="/list/{{ page+1 }}">Next >></a></li>
+                {% endif %}
+            </ul>
+        </div>
     {% endif %}
 {% endblock %}
 

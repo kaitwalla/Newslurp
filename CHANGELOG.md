@@ -1,3 +1,9 @@
+# CHANGELOG  
+
+# 1.1.3
+## MODIFIED
+- Front-end styling
+
 # 1.1.2
 ## ADDED
 - Author in RSS
