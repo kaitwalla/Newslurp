@@ -1,3 +1,7 @@
+# 1.1.2
+## ADDED
+- Author in RSS
+
 # 1.1.1
 ## ADDED
 - Twig filter for timestamp
@@ -8,7 +12,7 @@
 - Trigger.php (no longer needed after we solved the session issue)
 
 # 1.1.0
-##MODIFIED
+## MODIFIED
 - Removed GMail's dependency on session for values
 - Moved trigger outside the public, will not rely on HTML connection
 - User a controller, not a model

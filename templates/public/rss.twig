@@ -11,6 +11,7 @@
         {% for story in stories %}
             <item>
                 <pubdate>{{ story.date|timestamp }}</pubdate>
+                <author>{{ story.author}}</author>
                 <title>{{ story.title }}</title>
                 <guid>{{ url }}/story/{{ story.id }}</guid>
                 <link>{{ url }}/story/{{ story.id }}</link>
