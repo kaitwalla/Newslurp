@@ -1,5 +1,11 @@
 # CHANGELOG  
 
+# 1.1.6
+## MODIFIED
+- White background for stories
+- Date now an actual date, centered
+- Back button on story (for list)
+
 # 1.1.5
 ## MODIFIED
 - pubDate now capitalized properly

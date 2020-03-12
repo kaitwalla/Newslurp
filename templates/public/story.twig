@@ -4,10 +4,14 @@
 
 {% set bodyClass = 'story' %}
 
+{% block menu %}
+    <a href="/list"><< Stories</a>
+{% endblock %}
+
 {% block main %}
     <h1>{{ story.title }}</h1>
     <h2>{{ story.author }}</h2>
-    <h3>{{ story.date }}</h3>
+    <h3 class="align-center">{{ story.date|date }}</h3>
     <article>
         {{ story.content|raw }}
     </article>

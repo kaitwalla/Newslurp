@@ -19,13 +19,38 @@
 
             header {
                 background: #111;
+                text-align: center;
+            }
+
+            header a {
+                color: #F012BE;
             }
 
             header h2 a {
-                color: #F012BE;
                 text-decoration: none;
                 padding: 10px;
                 display: block;
+            }
+
+            header > a {
+                padding-bottom: 10px;
+                display: block;
+            }
+
+            @media(min-width: 768px) {
+                header {
+                    display: flex !important;
+                    align-items: center;
+                    text-align: left;
+                }
+
+                header h2 {
+                    margin-right: 20px;
+                }
+
+                header > a {
+                    padding-bottom: 0;
+                }
             }
 
             main {
@@ -105,6 +130,10 @@
             ul.nav li {
                 padding: 0 5px;
             }
+
+            main article {
+                background: white;
+            }
         </style>
         <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
         <script data-main="/js/app" src="/js/require.js"></script>
@@ -116,6 +145,7 @@
     {% endif %}
         <header>
             <h2><a href="/">Newslurp</a></h2>
+            {% block menu %}{% endblock %}
         </header>
         <main>
         {% block main %}
