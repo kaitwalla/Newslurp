@@ -1,5 +1,9 @@
 # CHANGELOG  
 
+# 1.1.4
+## MODIFIED
+- Fixed problem where only filter was being used
+
 # 1.1.3
 ## MODIFIED
 - Front-end styling
