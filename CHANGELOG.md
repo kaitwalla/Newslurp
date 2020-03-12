@@ -1,5 +1,9 @@
 # CHANGELOG  
 
+# 1.1.5
+## MODIFIED
+- pubDate now capitalized properly
+
 # 1.1.4
 ## MODIFIED
 - Fixed problem where only filter was being used

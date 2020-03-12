@@ -10,7 +10,7 @@
     {% if stories %}
         {% for story in stories %}
             <item>
-                <pubdate>{{ story.date|timestamp }}</pubdate>
+                <pubDate>{{ story.date|timestamp }}</pubDate>
                 <author>{{ story.author}}</author>
                 <title>{{ story.title }}</title>
                 <guid>{{ url }}/story/{{ story.id }}</guid>
