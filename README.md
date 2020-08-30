@@ -12,7 +12,7 @@ This a small, personal side project. I'm happy to let others use it if they find
 
 ## REQUIREMENTS
 
-• A GMail account 
+• A GMail account  
 • >= PHP 7.0  
 • Composer  
 • Mailparse PHP extension (not found on many shared servers, sorry)  
