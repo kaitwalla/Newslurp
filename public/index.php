@@ -1,32 +1,35 @@
 <?php
-namespace Technical_penguins\Newslurp;
+
+use Whoops\Handler\PrettyPageHandler;
+use Whoops\Run;
+
+// show all php errors
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 
 session_start();
 
-require_once(__DIR__ . '/../_autoload.php');
+require_once(__DIR__ . '/../vendor/autoload.php');
 
-use Flight;
-
-$whoops = new \Whoops\Run;
-$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+$whoops = new Run;
+$whoops->pushHandler(new PrettyPageHandler);
 $whoops->register();
 
 if (file_exists(__DIR__ . '/../env.php')) {
     require_once(__DIR__ . '/../env.php');
+    if (!isset($_ENV['password'])) {
+        throw new Exception('Password not set in ENV file');
+    }
 } else {
-    throw new \Exception('ENV file not created');
+    throw new Exception('ENV file not created');
 }
 
-if (!file_exists(__DIR__ . '/../client_secret.json')) {
-    throw new \Exception('Client Secret file not found');
-}
-
-Flight::map('error', function($e){
-    $whoops = new \Whoops\Run;
-    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+Flight::map('error', function ($e) {
+    $whoops = new Run;
+    $whoops->pushHandler(new PrettyPageHandler);
     $whoops->register();
     $whoops->handleException($e);
 });
 
 require_once(__DIR__ . '/../routes/web.php');
-

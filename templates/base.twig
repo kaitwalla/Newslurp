@@ -1,167 +1,177 @@
 <!doctype html >
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Newslurp - {{ pageTitle }}</title>
-        <style>
-            * {
-                box-sizing: border-box;
-                margin: 0;
-                padding: 0;
-            }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Newslurp - {{ pageTitle }}</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-            html {
-                background: rgba(0,0,0,0.7);
-                color: black;
-            }
+        html {
+            background: rgba(0, 0, 0, 0.7);
+            color: black;
+        }
 
+        header {
+            background: #111;
+            text-align: center;
+        }
+
+        header a {
+            color: #F012BE;
+        }
+
+        .box.error {
+            background: #F012BE;
+            color: white;
+            padding: 10px;
+            margin: 10px;
+            max-width: 500px;
+            margin: 20px auto;
+        }
+
+        header h2 a {
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+        }
+
+        header > a {
+            padding-bottom: 10px;
+            display: block;
+        }
+
+        @media (min-width: 768px) {
             header {
-                background: #111;
-                text-align: center;
+                display: flex !important;
+                align-items: center;
+                text-align: left;
             }
 
-            header a {
-                color: #F012BE;
-            }
-
-            header h2 a {
-                text-decoration: none;
-                padding: 10px;
-                display: block;
+            header h2 {
+                margin-right: 20px;
             }
 
             header > a {
-                padding-bottom: 10px;
-                display: block;
+                padding-bottom: 0;
             }
+        }
 
-            @media(min-width: 768px) {
-                header {
-                    display: flex !important;
-                    align-items: center;
-                    text-align: left;
-                }
+        main {
+            padding: 10px;
+        }
 
-                header h2 {
-                    margin-right: 20px;
-                }
+        main .content {
+            background: #aaa;
+            padding: 10px;
+            max-width: 1000px;
+            margin: 10px auto;
+        }
 
-                header > a {
-                    padding-bottom: 0;
-                }
-            }
+        main .content h3 {
+            margin: 10px auto;
+            text-align: center;
+        }
 
-            main {
-                padding: 10px;
-            }
+        .align-center {
+            text-align: center;
+        }
 
-            main .content {
-                background: #aaa;
-                padding: 10px;
-                max-width: 1000px;
-                margin: 10px auto;
-            }
+        form {
+            margin-top: 30px;
+            margin-left: 50%;
+            transform: translateX(-50%);
+            background: #eee;
+            padding: 20px;
+        }
 
-            main .content h3 {
-                margin: 10px auto;
-                text-align: center;
-            }
+        form h2, form input, form h3 {
+            margin: 7px 0;
+        }
 
-            .align-center {
-                text-align: center;
-            }
+        a.pure-button, button.pure-button {
+            transition: background 0.2s;
+            color: black;
+        }
 
-            form {
-                margin-top: 30px;
-                margin-left: 50%;
-                transform: translateX(-50%);
-                background: #eee;
-                padding: 20px;
-            }
+        a.pure-button, button.pure-button:hover {
+            transition: background 0.2s;
+        }
 
-            form h2, form input, form h3 {
-                margin: 7px 0;
-            }
+        a.pure-button.primary, button.pure-button.primary {
+            background: #F012BE;
+        }
 
-            a.pure-button, button.pure-button {
-                transition: background 0.2s;
-                color: black;
-            }
+        a.pure-button.primary:hover, button.pure-button.primary:hover {
+            background: #85144B;
+        }
 
-            a.pure-button, button.pure-button:hover {
-                transition: background 0.2s;
-            }
+        a.pure-button.secondary, button.pure-button.secondary {
+            background: #01FF70;
+        }
 
-            a.pure-button.primary, button.pure-button.primary {
-                background: #F012BE;
-            }
+        a.pure-button.secondary:hover, button.pure-button.secondary:hover {
+            background: #3D9970;
+        }
 
-            a.pure-button.primary:hover, button.pure-button.primary:hover {
-                background: #85144B;
-            }
+        .pure-table a {
+            text-decoration: none;
+            color: black;
+        }
 
-            a.pure-button.secondary, button.pure-button.secondary {
-                background: #01FF70;
-            }
+        .pure-table .author a {
+            font-weight: bold;
+        }
 
-            a.pure-button.secondary:hover, button.pure-button.secondary:hover {
-                background: #3D9970;
-            }
+        ul.nav {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding-left: 0;
+            margin: 10px;
+        }
 
-            .pure-table a {
-                text-decoration: none;
-                color: black;
-            }
+        ul.nav li {
+            padding: 0 5px;
+        }
 
-            .pure-table .author a {
-                font-weight: bold;
-            }
+        main article {
+            background: white;
+        }
+    </style>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css"
+          integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+    <script data-main="/js/app" src="/js/require.js"></script>
+</head>
+{% if bodyClass is empty %}
+<body class="newslurp page">
+{% else %}
+<body class="newslurp page {{ bodyClass|join(' ') }}">
+{% endif %}
+<header>
+    <h2><a href="/">Newslurp</a></h2>
+    {% block menu %}{% endblock %}
+</header>
+<main>
+    {% block main %}
 
-            ul.nav {
-                display: flex;
-                justify-content: center;
-                list-style: none;
-                padding-left: 0;
-                margin: 10px;
-            }
+    {% endblock main %}
+</main>
+</body>
+<footer>{% block footer %}{% endblock %}</footer>
+{% block scripts %}
+    <script src="https://kit.fontawesome.com/fadb0aaf3e.js" crossorigin="anonymous"></script>
+    <script src="/js/app.js"></script>
+    <link type="text/css" rel="stylesheet" href="/app.css"/>
+    {% block addscripts %}
 
-            ul.nav li {
-                padding: 0 5px;
-            }
-
-            main article {
-                background: white;
-            }
-        </style>
-        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
-        <script data-main="/js/app" src="/js/require.js"></script>
-    </head>
-    {% if bodyClass is empty %}
-        <body class="newslurp page">
-    {% else %}
-        <body class="newslurp page {{ bodyClass|join(' ') }}">
-    {% endif %}
-        <header>
-            <h2><a href="/">Newslurp</a></h2>
-            {% block menu %}{% endblock %}
-        </header>
-        <main>
-        {% block main %}
-
-        {% endblock main %}
-        </main>
-    </body>
-    <footer>{% block footer %}{% endblock %}</footer>
-    {% block scripts %}
-        <script src="https://kit.fontawesome.com/fadb0aaf3e.js" crossorigin="anonymous"></script>
-        <script src="/js/app.js"></script>
-        <link type="text/css" rel="stylesheet" href="/app.css" />
-        {% block addscripts %}
-
-        {% endblock %}
     {% endblock %}
+{% endblock %}
 </body>
 </html>

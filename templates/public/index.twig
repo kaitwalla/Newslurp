@@ -5,76 +5,67 @@
 {% set bodyClass = 'front' %}
 
 {% block main %}
-    {% if activated == false %}
-        <form class="pure-form pure-form-stacked" action="/authorize" method="POST">
+    {% if error %}
+        <div class="box error">
+            <h3>Error</h3>
+            <p>{{ error }}</p>
+        </div>
+    {% endif %}
+    {% if authenticated == false %}
+        <form class="pure-form pure-form-stacked" action="/authenticate" method="POST">
             <fieldset>
-            <h2>Authenticate with Google</h2>
-            <label>Email address
-            <input required name="email_address" />
-            </label>
-            <button class="pure-button primary">Authenticate</button>
-        </fieldset>
+                <h2>Authenticate</h2>
+                <label>Password
+                    <input required name="password" type="password"/>
+                </label>
+                <button class="pure-button primary">Log in</button>
+            </fieldset>
         </form>
     {% else %}
-        {% if user == false %}
-            <div class="box">
-                <form class="pure-form pure-form-stacked" action="/authorize" method="POST">
-                    <fieldset>
-                    <h3>This installation is activated.</h3>
-                    <h4>Please log in</h4>
-                        <label>Email address
-                        <input required name="email_address" />
-                        </label>
-                    <button class="pure-button primary">Authenticate with Google</button>
-                </fieldset>
-                </form>
+        <div class="box content">
+            <h3>You are the current user.</h3>
+            <div class="align-center" style="margin-bottom: 15px;">
+                <a class="pure-button secondary" href="/list/">List all stories</a>
+                <a href="/logout" class="pure-button primary">Logout</a>
             </div>
-        {% else %}
-            <div class="box content">
-                <h3>You are the current user.</h3>
-                <div class="align-center" style="margin-bottom: 15px;">
-                    <a class="pure-button secondary" href="/list/">List all stories</a>
-                    <a href="/logout" class="pure-button primary">Logout</a>
-                </div>
-                {% if stories %}
-                    <table class="pure-table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>From</th>
-                                <th>Subject</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {% for story in stories %}
-                            <tr>
-                                <td class="date">
-                                    <a href="/story/{{ story.id }}">
-                                        {{ story.date|date }}
-                                    </a>
-                                </td>
-                                <td class="author">
-                                    <a href="/story/{{ story.id }}">
-                                        {{ story.author }}
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="/story/{{ story.id }}">
-                                        {{ story.title }}
-                                    </a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                {% endif %}
-            </div>
-        {% endif %}
+            {% if stories %}
+                <table class="pure-table">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>From</th>
+                        <th>Subject</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for story in stories %}
+                        <tr>
+                            <td class="date">
+                                <a href="/story/{{ story.id }}">
+                                    {{ story.date|date }}
+                                </a>
+                            </td>
+                            <td class="author">
+                                <a href="/story/{{ story.id }}">
+                                    {{ story.author }}
+                                </a>
+                            </td>
+                            <td>
+                                <a href="/story/{{ story.id }}">
+                                    {{ story.title }}
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
     {% endif %}
 {% endblock %}
 
 {% block addscripts %}
     <script>
-        
+
     </script>
 {% endblock %}
