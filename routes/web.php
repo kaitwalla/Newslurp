@@ -2,6 +2,11 @@
 
 namespace Technical_peguins\Newslurp\Route;
 
+// show all php errors
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 use Flight;
 use Technical_penguins\Newslurp\Action\Authenticate;
 use Technical_penguins\Newslurp\Action\Ingest;
@@ -9,21 +14,23 @@ use Technical_penguins\Newslurp\Controller\Page;
 use Technical_penguins\Newslurp\Controller\Story;
 
 Flight::route('/', function () {
-
     $params = [];
     if (isset($_SESSION['authenticated']) && $_SESSION['authenticated'] === true) {
         $params['authenticated'] = true;
         $params['stories'] = Story::get_stories(0);
     }
-    if (isset($_SESSION['error'])) {
+    if (isset($_SESSION['error'])) { 
         $params['error'] = $_SESSION['error'];
         unset($_SESSION['error']);
     }
     Page::load('public/index.twig', $params);
 });
 
-Flight::route('/ingest', function ($data) {
-    Ingest::handle(Flight::request()->data['data']);
+Flight::post('/ingest', function () {
+    $data = Flight::request()->getBody();
+    if ($data) {
+         Ingest::handle(json_decode($data, true));
+    }
 });
 
 Flight::post('/logout', function () {

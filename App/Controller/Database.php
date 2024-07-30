@@ -8,7 +8,7 @@ use PDOStatement;
 
 class Database
 {
-    const string STORY_TABLE = 'stories';
+    const STORY_TABLE = 'stories';
     private PDO $pdo;
 
     /**

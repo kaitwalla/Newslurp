@@ -4,7 +4,8 @@ namespace Technical_penguins\Newslurp\Controller;
 
 use Exception;
 use PDO;
-use Technical_penguins\Newslurp\DTOs\GmailMessageDTO;
+use Technical_penguins\Newslurp\Dtos\GmailMessageDTO;
+use Technical_penguins\Newslurp\Converters\GmailMessageDTOToStory;
 use Technical_penguins\Newslurp\Model\Story as StoryObj;
 use Technical_penguins\Newslurp\Utilities\StoryArray;
 
@@ -16,7 +17,7 @@ class Story
     public static function get_count(): int
     {
         $query = Database::query('SELECT COUNT(*) as count FROM ' . Database::STORY_TABLE);
-        $result = $query->fetchAll(PDO::FETCH_CLASS);
+        $result = $query->fetchAll();
         return $result[0]->count;
     }
 
@@ -27,8 +28,12 @@ class Story
     {
         $offset = $page * 10;
         $query = Database::query('SELECT * FROM ' . Database::STORY_TABLE . ' ORDER BY `date` DESC LIMIT 10 OFFSET ' . $offset);
-        $dtos = $query->fetchAll(PDO::FETCH_CLASSTYPE);
-        return new StoryArray(array_map(fn($dto) => StoryObj::load(new GmailMessageDto(...$dto)), $dtos));
+        $data = $query->fetchAll(PDO::FETCH_ASSOC);
+        $stories = new StoryArray([]);
+        foreach($data as $storyData) {
+            $stories[] = new StoryObj(...[...$storyData, 'loaded' => true]);
+        }
+        return $stories;
     }
 
     /**
@@ -37,7 +42,7 @@ class Story
     public static function load(int $id): StoryObj
     {
         $query = Database::query('SELECT * FROM ' . Database::STORY_TABLE . ' WHERE id=?', [$id]);
-        return StoryObj::load($query->fetch(PDO::FETCH_CLASSTYPE, GmailMessageDTO::class));
+        return new StoryObj(...[...$query->fetch(PDO::FETCH_ASSOC), 'loaded' => true]);
     }
 
     /**
@@ -47,7 +52,11 @@ class Story
     {
         $one_week_ago = time() - 604800;
         $query = Database::query('SELECT * FROM ' . Database::STORY_TABLE . ' WHERE `date` > ' . $one_week_ago . ' ORDER BY `date` DESC');
-        $dtos = $query->fetchAll(PDO::FETCH_CLASSTYPE);
-        return new StoryArray(array_map(fn($dto) => StoryObj::load(new GmailMessageDto(...$dto)), $dtos));
+        $data = $query->fetchAll(PDO::FETCH_ASSOC);
+        $stories = new StoryArray([]);
+        foreach($data as $storyData) {
+            $stories[] = new StoryObj(...[...$storyData, 'loaded' => true]);
+        }
+        return $stories;
     }
 }

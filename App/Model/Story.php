@@ -5,6 +5,7 @@ namespace Technical_penguins\Newslurp\Model;
 use Technical_penguins\Newslurp\Controller\Database;
 use Technical_penguins\Newslurp\Controller\Story as StoryController;
 use Technical_penguins\Newslurp\DTOs\GmailMessageDTO;
+use Technical_penguins\Newslurp\Converters\GmailMessageDTOtoStory;
 
 class Story
 {
@@ -14,8 +15,8 @@ class Story
         public string  $date,
         public string  $description,
         public string  $title,
-        public ?string $type,
-        readonly bool  $loaded)
+        readonly bool  $loaded = false,
+        public ?int $id = null)
     {
         if (!$this->loaded && isset($this->date)) {
             $this->date = strtotime($this->date);
@@ -25,9 +26,9 @@ class Story
     public static function load(int|GmailMessageDTO $content): self
     {
         if (is_int($content)) {
-            $content = StoryController::load($content);
+            return StoryController::load($content);
         }
-        return new Story(...$content);
+        return GmailMessageDTOtoStory::convert($content);
     }
 
     public function save(): void
