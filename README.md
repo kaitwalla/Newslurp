@@ -19,6 +19,7 @@ tracking down edge cases. So — email me if you have issues, but no guarantees 
 - Composer
 - Sqlite PDO driver + php extension
 - Top-level domain or subdomain (not designed for subdirectory installs) for installation
+- Google Apps Script (see below)
 
 ## INSTALLATION
 
@@ -26,7 +27,9 @@ tracking down edge cases. So — email me if you have issues, but no guarantees 
 - Install dependencies using Composer
 - Set up a filter in your Gmail account to label the emails you want to catch as "Newsletters." You can archive them,
   but do not delete them (the program will trash them after processing)
-- Copy this Google Apps Script and change your newsletter label (if necessary) and URL where you installed this project
+- Copy
+  this [Google Apps Script](https://script.google.com/d/1vdq1mfdVwB_ep4gyORGum6MvXCwYZWxqj_jp2fwquGxFLoJwYBvlZDBh/edit?usp=sharing)
+  and change your newsletter label (if necessary) and URL where you installed this project
 - Set up a trigger for the Apps Script on whatever schedule you want (I recommend at least daily)
 
 ## USAGE
