@@ -15,14 +15,18 @@ $whoops = new Run;
 $whoops->pushHandler(new PrettyPageHandler);
 $whoops->register();
 
-if (file_exists(__DIR__ . '/../env.php')) {
-    require_once(__DIR__ . '/../env.php');
-    if (!isset($_ENV['password'])) {
-        throw new Exception('Password not set in ENV file');
-    }
-} else {
-    throw new Exception('ENV file not created');
+// Load environment variables from .env file
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+try {
+    $dotenv->load();
+    $dotenv->required(['URL', 'PASSWORD', 'DB_TYPE'])->notEmpty();
+} catch (Exception $e) {
+    throw new Exception('Error loading .env file: ' . $e->getMessage());
 }
+
+// Make environment variables available in $_ENV for backward compatibility
+$_ENV['url'] = $_ENV['URL'];
+$_ENV['password'] = $_ENV['PASSWORD'];
 
 Flight::map('error', function ($e) {
     $whoops = new Run;

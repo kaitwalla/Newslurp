@@ -3,7 +3,8 @@
     "mikecao/flight": "^3.11",
     "twig/twig": "^3.0",
     "filp/whoops": "^2.15.4",
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "vlucas/phpdotenv": "^5.5"
   },
   "config": {
     "platform": {

@@ -23,7 +23,8 @@ tracking down edge cases. So — email me if you have issues, but no guarantees 
 
 ## INSTALLATION
 
-- Rename env.sample.php to env.php and set the appropriate variables
+- Copy .env.example to .env and set the appropriate variables
+- Rename _data.sqlite to data.sqlite
 - Install dependencies using Composer
 - Set up a filter in your Gmail account to label the emails you want to catch as "Newsletters." You can archive them,
   but do not delete them (the program will trash them after processing)

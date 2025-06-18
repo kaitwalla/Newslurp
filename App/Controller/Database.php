@@ -16,7 +16,38 @@ class Database
      */
     public function __construct()
     {
-        $this->pdo = new PDO('sqlite:' . __DIR__ . '/../../data.sqlite');
+        $dbType = $_ENV['DB_TYPE'] ?? 'sqlite';
+
+        switch ($dbType) {
+            case 'mysql':
+                $host = $_ENV['DB_HOST'] ?? 'localhost';
+                $port = $_ENV['DB_PORT'] ?? '3306';
+                $database = $_ENV['DB_DATABASE'] ?? 'newslurp';
+                $username = $_ENV['DB_USERNAME'] ?? 'root';
+                $password = $_ENV['DB_PASSWORD'] ?? '';
+                $dsn = "mysql:host={$host};port={$port};dbname={$database}";
+                $this->pdo = new PDO($dsn, $username, $password);
+                break;
+
+            case 'pgsql':
+                $host = $_ENV['DB_HOST'] ?? 'localhost';
+                $port = $_ENV['DB_PORT'] ?? '5432';
+                $database = $_ENV['DB_DATABASE'] ?? 'newslurp';
+                $username = $_ENV['DB_USERNAME'] ?? 'postgres';
+                $password = $_ENV['DB_PASSWORD'] ?? '';
+                $dsn = "pgsql:host={$host};port={$port};dbname={$database}";
+                $this->pdo = new PDO($dsn, $username, $password);
+                break;
+
+            case 'sqlite':
+            default:
+                $path = $_ENV['DB_PATH'] ?? __DIR__ . '/../../data.sqlite';
+                $this->pdo = new PDO('sqlite:' . $path);
+                break;
+        }
+
+        // Set error mode to exceptions for all connections
+        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
     public static function query($query, $options = false): PDOStatement|Exception
