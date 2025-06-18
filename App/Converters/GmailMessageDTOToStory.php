@@ -10,11 +10,11 @@ class GmailMessageDTOToStory
     public static function convert(GmailMessageDTO $dto): Story
     {
         return new Story(
-            title: $dto->title,
-            content: $dto->html,
             author: $dto->author,
+            content: $dto->html,
             date: $dto->date,
             description: $dto->description,
-        );        
+            title: $dto->title,
+        );
     }
 } 

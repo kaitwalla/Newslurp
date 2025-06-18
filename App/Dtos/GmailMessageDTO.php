@@ -1,6 +1,6 @@
 <?php
 
-namespace Technical_penguins\Newslurp\DTOs;
+namespace Technical_penguins\Newslurp\Dtos;
 
 class GmailMessageDTO
 {
