@@ -24,10 +24,6 @@ try {
     throw new Exception('Error loading .env file: ' . $e->getMessage());
 }
 
-// Make environment variables available in $_ENV for backward compatibility
-$_ENV['url'] = $_ENV['URL'];
-$_ENV['password'] = $_ENV['PASSWORD'];
-
 Flight::map('error', function ($e) {
     $whoops = new Run;
     $whoops->pushHandler(new PrettyPageHandler);
