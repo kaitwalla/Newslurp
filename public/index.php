@@ -18,7 +18,7 @@ try {
     $dotenv->load();
     $dotenv->required(['URL', 'PASSWORD', 'PROD', 'DB_TYPE'])->notEmpty();
     if ($_ENV['PROD']) {
-        $flare = Flare::make('tFJ1ZHP8efnOkwXxArVJbI7ZfbjAnEBD')->registerFlareHandlers();
+        $flare = Flare::make($_ENV['FLARE_TOKEN'])->registerFlareHandlers();
     }
 } catch (Exception $e) {
     throw new Exception('Error loading .env file: ' . $e->getMessage());
