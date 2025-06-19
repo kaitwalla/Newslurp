@@ -4,8 +4,8 @@ namespace Technical_penguins\Newslurp\Model;
 
 use Technical_penguins\Newslurp\Controller\Database;
 use Technical_penguins\Newslurp\Controller\Story as StoryController;
-use Technical_penguins\Newslurp\DTOs\GmailMessageDTO;
 use Technical_penguins\Newslurp\Converters\GmailMessageDTOtoStory;
+use Technical_penguins\Newslurp\DTOs\GmailMessageDTO;
 
 class Story
 {
@@ -13,10 +13,10 @@ class Story
         public string  $author,
         public string  $content,
         public string  $date,
-        public string  $description,
+        public ?string $description,
         public string  $title,
         readonly bool  $loaded = false,
-        public ?int $id = null)
+        public ?int    $id = null)
     {
         if (!$this->loaded && isset($this->date)) {
             $this->date = strtotime($this->date);

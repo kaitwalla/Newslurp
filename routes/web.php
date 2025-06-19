@@ -19,7 +19,7 @@ Flight::route('/', function () {
         $params['authenticated'] = true;
         $params['stories'] = Story::get_stories(0);
     }
-    if (isset($_SESSION['error'])) { 
+    if (isset($_SESSION['error'])) {
         $params['error'] = $_SESSION['error'];
         unset($_SESSION['error']);
     }
@@ -28,8 +28,9 @@ Flight::route('/', function () {
 
 Flight::post('/ingest', function () {
     $data = Flight::request()->getBody();
+    file_put_contents(__DIR__ . '/data', $data);
     if ($data) {
-         Ingest::handle(json_decode($data, true));
+        Ingest::handle(json_decode($data, true));
     }
 });
 
