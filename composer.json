@@ -4,7 +4,8 @@
     "twig/twig": "^3.0",
     "filp/whoops": "^2.15.4",
     "ext-pdo": "*",
-    "vlucas/phpdotenv": "^5.5"
+    "vlucas/phpdotenv": "^5.5",
+    "spatie/flare-client-php": "^2.0"
   },
   "config": {
     "platform": {

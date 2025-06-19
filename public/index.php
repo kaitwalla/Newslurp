@@ -1,13 +1,10 @@
 <?php
 
+use Spatie\FlareClient\Flare;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
 session_start();
-
-// show all php errors
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 require_once(__DIR__ . '/../vendor/autoload.php');
 
@@ -19,7 +16,10 @@ $whoops->register();
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
 try {
     $dotenv->load();
-    $dotenv->required(['URL', 'PASSWORD', 'DB_TYPE'])->notEmpty();
+    $dotenv->required(['URL', 'PASSWORD', 'PROD', 'DB_TYPE'])->notEmpty();
+    if ($_ENV['PROD']) {
+        $flare = Flare::make('tFJ1ZHP8efnOkwXxArVJbI7ZfbjAnEBD')->registerFlareHandlers();
+    }
 } catch (Exception $e) {
     throw new Exception('Error loading .env file: ' . $e->getMessage());
 }

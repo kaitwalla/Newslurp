@@ -2,11 +2,6 @@
 
 namespace Technical_peguins\Newslurp\Route;
 
-// show all php errors
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 use Flight;
 use Technical_penguins\Newslurp\Action\Authenticate;
 use Technical_penguins\Newslurp\Action\Ingest;
@@ -64,7 +59,7 @@ Flight::route('/story/@id', function ($id) {
 Flight::route('/rss', function () {
     $stories = Story::get_rss_stories();
     header('Content-Type: application/xml; charset=utf-8');
-    Page::load('public/rss.twig', ['url' => $_ENV['url'], 'stories' => $stories]);
+    Page::load('public/rss.twig', ['url' => $_ENV['URL'], 'stories' => $stories]);
 });
 
 Flight::start();
