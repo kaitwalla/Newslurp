@@ -24,7 +24,7 @@ Flight::route('/', function () {
 Flight::post('/ingest', function () {
     $data = Flight::request()->getBody();
     file_put_contents(__DIR__ . '/data', $data);
-    if ($data) {
+    if ($data && !empty($data)) {
         Ingest::handle(json_decode($data, true));
     }
 });
