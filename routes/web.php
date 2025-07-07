@@ -8,6 +8,10 @@ use Technical_penguins\Newslurp\Action\Ingest;
 use Technical_penguins\Newslurp\Controller\Page;
 use Technical_penguins\Newslurp\Controller\Story;
 
+$config = FlareConfig::make($_ENV['FLARE_TOKEN'])->trace();
+
+Flare::make($config)->registerFlareHandlers();
+
 Flight::route('/', function () {
     $params = [];
     if (isset($_SESSION['authenticated']) && $_SESSION['authenticated'] === true) {
@@ -22,10 +26,20 @@ Flight::route('/', function () {
 });
 
 Flight::post('/ingest', function () {
+    // Get the raw request body
     $data = Flight::request()->getBody();
     file_put_contents(__DIR__ . '/data', $data);
     if ($data && !empty($data)) {
-        Ingest::handle(json_decode($data, true));
+        // Decode the JSON data from the request body
+        // This works with the Google Apps Script: UrlFetchApp.fetch('https://newsletter.kait.dev/ingest', 
+        // {muteHttpExceptions: false, method: 'post', payload: JSON.stringify(messageContents)})
+        $decoded_data = json_decode($data, true);
+        if (is_array($decoded_data)) {
+            Ingest::handle($decoded_data);
+        } else {
+            // Log error or handle invalid JSON data
+            error_log('Invalid JSON data received in /ingest endpoint');
+        }
     }
 });
 
