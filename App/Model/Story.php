@@ -26,7 +26,7 @@ class Story
 
     public static function load(int|GmailMessageDTO $content): self
     {
-        $story = (is_int($content)) ? StoryController::load($content); : GmailMessageDTOtoStory::convert($content);
+        $story = (is_int($content)) ? StoryController::load($content) : GmailMessageDTOtoStory::convert($content);
         $story->authorCleaned = preg_replace('/\s<.*?>/','', $this->author);
         return $story;
     }
