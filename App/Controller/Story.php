@@ -31,7 +31,7 @@ class Story
         $data = $query->fetchAll(PDO::FETCH_ASSOC);
         $stories = new StoryArray([]);
         foreach($data as $storyData) {
-            $stories[] = new StoryObj(...[...$storyData, 'loaded' => true, 'authorCleaned' => null]);
+            $stories[] = new StoryObj(...[...$storyData, 'loaded' => true]);
         }
         return $stories;
     }
@@ -42,7 +42,7 @@ class Story
     public static function load(int $id): StoryObj
     {
         $query = Database::query('SELECT * FROM ' . Database::STORY_TABLE . ' WHERE id=?', [$id]);
-        return new StoryObj(...[...$query->fetch(PDO::FETCH_ASSOC), 'loaded' => true, 'authorCleaned' => null]);
+        return new StoryObj(...[...$query->fetch(PDO::FETCH_ASSOC), 'loaded' => true]);
     }
 
     /**
@@ -55,7 +55,7 @@ class Story
         $data = $query->fetchAll(PDO::FETCH_ASSOC);
         $stories = new StoryArray([]);
         foreach($data as $storyData) {
-            $stories[] = new StoryObj(...[...$storyData, 'loaded' => true, 'authorCleaned' => null]);
+            $stories[] = new StoryObj(...[...$storyData, 'loaded' => true]);
         }
         return $stories;
     }

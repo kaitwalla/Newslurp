@@ -17,7 +17,7 @@ class Story
         public string  $title,
         readonly bool  $loaded = false,
         public ?int    $id = null,
-        public ?string $authorCleaned,
+        public ?string $authorCleaned = null,
     )
     {
         if (!$this->loaded && isset($this->date)) {
