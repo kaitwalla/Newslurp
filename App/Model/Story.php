@@ -11,7 +11,7 @@ class Story
 {
     public function __construct(
         public string  $author,
-        public string  $authorCleaned,
+        public ?string  $authorCleaned,
         public string  $content,
         public string  $date,
         public ?string $description,
