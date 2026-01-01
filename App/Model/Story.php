@@ -23,13 +23,12 @@ class Story
         if (!$this->loaded && isset($this->date)) {
             $this->date = strtotime($this->date);
         }
+        $this->authorCleaned = preg_replace('/\s<.*?>/','', $this->author);
     }
 
     public static function load(int|GmailMessageDTO $content): self
     {
-        $story = (is_int($content)) ? StoryController::load($content) : GmailMessageDTOtoStory::convert($content);
-        $story->authorCleaned = preg_replace('/\s<.*?>/','', $this->author);
-        return $story;
+        return (is_int($content)) ? StoryController::load($content) : GmailMessageDTOtoStory::convert($content);
     }
 
     public function save(): void
