@@ -11,6 +11,7 @@ class Story
 {
     public function __construct(
         public string  $author,
+        public string  $authorCleaned,
         public string  $content,
         public string  $date,
         public ?string $description,
@@ -25,10 +26,9 @@ class Story
 
     public static function load(int|GmailMessageDTO $content): self
     {
-        if (is_int($content)) {
-            return StoryController::load($content);
-        }
-        return GmailMessageDTOtoStory::convert($content);
+        $story = (is_int($content)) ? StoryController::load($content); : GmailMessageDTOtoStory::convert($content);
+        $story->authorCleaned = preg_replace('/\s<.*?>/','', $this->author);
+        return $story;
     }
 
     public function save(): void

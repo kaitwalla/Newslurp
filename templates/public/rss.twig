@@ -11,8 +11,8 @@
         {% for story in stories %}
             <item>
                 <pubDate>{{ story.date|timestamp }}</pubDate>
-                <author>{{ story.author}}</author>
-                <title>{{ story.author }} | {{ story.title }}</title>
+                <author>{{ story.author }}</author>
+                <title>{{ story.authorCleaned }} | {{ story.title }}</title>
                 <guid>{{ url }}/story/{{ story.id }}</guid>
                 <link>{{ url }}/story/{{ story.id }}</link>
                 <description>{{ story.description|trim }}</description>
