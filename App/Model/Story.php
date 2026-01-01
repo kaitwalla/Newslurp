@@ -11,13 +11,13 @@ class Story
 {
     public function __construct(
         public string  $author,
-        public ?string  $authorCleaned,
         public string  $content,
         public string  $date,
         public ?string $description,
         public string  $title,
         readonly bool  $loaded = false,
         public ?int    $id = null)
+        public ?string $authorCleaned,
     {
         if (!$this->loaded && isset($this->date)) {
             $this->date = strtotime($this->date);
